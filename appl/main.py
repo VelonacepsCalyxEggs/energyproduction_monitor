@@ -25,7 +25,11 @@ def locationChanger():
     return()
 
 @eel.expose
-def dataRequestYear(date):
+def dataRequestYear(date,mw,kw,w):
+    mw = False
+    kw = False
+    w = False
+    
     print(date)
     stringifiedDate = date.split('-')
     year = stringifiedDate[0]
@@ -37,7 +41,22 @@ def dataRequestYear(date):
     data = cur.fetchmany(12)
     cur.close()
     con.close()
-    jsonifiedData = json.dumps(data)
+    dividedData = []
+    if mw == True:
+        divisor = 100
+        for num in data:
+            dividedData.append(num / divisor)
+    elif kw == True:
+        divisor = 10
+        for num in data:
+            dividedData.append(num / divisor)
+    elif w == True:
+        divisor = 1
+        dividedData.append(num / divisor)
+    else:
+        print('What the fuck?!')
+        
+    jsonifiedData = json.dumps(dividedData)
     return jsonifiedData
 
 @eel.expose
@@ -50,6 +69,22 @@ def dataRequestMonth(date):
     con = psycopg2.connect(database='energydb', user='postgres', password='424212')
     cur = con.cursor()
     cur.execute(sql.SQL("SELECT kw FROM energydata WHERE DATE_TRUNC('month', date) = DATE_TRUNC('month', %s::date) AND EXTRACT(hour FROM date) = 12;"), [date])
+    data = cur.fetchall()
+    cur.close()
+    con.close()
+    jsonifiedData = json.dumps(data)
+    return jsonifiedData
+
+@eel.expose
+def dataRequestDay(date):
+    print(date)
+    stringifiedDate = date.split('-')
+    year = stringifiedDate[0]
+    month = stringifiedDate[1]
+    day = stringifiedDate[2]
+    con = psycopg2.connect(database='energydb', user='postgres', password='424212')
+    cur = con.cursor()
+    cur.execute(sql.SQL("SELECT kw FROM energydata WHERE DATE_TRUNC('month', date) = DATE_TRUNC('month', %s::date) AND EXTRACT(day FROM date) = %s;"), [date,day])
     data = cur.fetchall()
     cur.close()
     con.close()

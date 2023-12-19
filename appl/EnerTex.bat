@@ -1,2 +1,2 @@
 @echo off
-python main.py
+python3.11 main.py
