@@ -2,7 +2,7 @@ import eel
 import sys
 import subprocess
 
-eel.init("C:/Users/Student/Music/appl/gui") 
+eel.init("C:/Users/ivank/source/repos/energyproduction_monitor/appl/gui") 
 
 @eel.expose
 def startup():
