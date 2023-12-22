@@ -41,7 +41,7 @@ document.getElementById('date').oninput = function (){
         requestedData = requestedData.join('-').split('-');
         console.log(requestedData)
         dateSplit = date.split('-')
-
+        labels = [2019,2020,2021,2022,2023]
           new Chart(document.getElementById("line-chart"), {
             type: 'line',
             data: {
@@ -67,6 +67,7 @@ document.getElementById('date').oninput = function (){
               }
             }
           });     
+        eel.saveDataForAnalysis(requestedData,requestedData2,labels) 
         console.log(requestedData)         
       }).catch(function (error) {
         console.error(error);

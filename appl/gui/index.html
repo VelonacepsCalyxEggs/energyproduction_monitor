@@ -11,10 +11,35 @@
   <script type=”text/javascript” src=”/eel.js”></script>
 </head>
 
-<body style="background-image: url('css/back.jfif'); background-size: auto; background-repeat: no-repeat;">
+<body>
   <div class="row row-cols-2 p-0">
-    <div class="container_fluid" style="background-color: #003675;height: 12vh;display:flex;align-items: center;"><span style="padding: 4vh;"><button id="homeBut" value="http://localhost:55045/index.html" style="padding: 2vh;">Home</button></span><span style="padding: 4vh;"><button id="energyBut" value="http://localhost:55045/energygraph.html" style="padding: 2vh;">Energy Graph</button></span><span style="padding: 4vh;"><button id="optBut" style="padding: 2vh;">Options</button></span><span style="padding: 4vh;"><button id="exitBut" style="padding: 2vh;">Выход</button></span></div>
-    <div class="container_fluid" style="background-color: #003675;height: 12vh;display:flex;border-style: solid;border-color: black;border-left: 8px;align-items: center;align-content: center;justify-content: center;"><span class="h1" id="testchange" style="color: white;">ЭнергоПроизводство</span></div>
+    <div class="container-fluid" style="background-color: #003675;height: 12vh;display:flex;align-items: center; border-style: solid;border-color: black; border-right: 200px; border-width: 8px;"><span style="padding: 4vh;"><button id="homeBut" value="http://localhost:55045/index.html" style="padding: 2vh;">Home</button></span><span style="padding: 4vh;"><button id="energyBut" value="http://localhost:55045/energygraph.html" style="padding: 2vh;">Energy Graph</button></span><span style="padding: 4vh;"><button id="paramsBut" style="padding: 2vh;">Options</button></span><span style="padding: 4vh;"><button id="exitBut" style="padding: 2vh;">Выход</button></span></div>
+    <div class="container-fluid" style="background-color: #003675;height: 12vh;display:flex;border-style: solid;border-color: black; border-width: 8px; border-left: 200px;align-items: center;align-content: center;justify-content: center;"><span class="h1" id="testchange" style="color: white;">ЭнергоПроизводство</span></div>
+  </div>
+  <div class="row row-cols-2 p-0">
+    <div class="container-fluid" style="background-image: url('css/back.jfif'); background-size: auto; background-repeat: no-repeat; height: 1024px; border-style: solid; border-color: black; border-top: 8px; border-width: 8px;"></div>
+    <div class="container-fluid" style="display: flex; float: right;"><p class="h1" id="clock"></p></div>
+    <script>
+      function updateClock() {
+        let now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+  
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+  
+        let timeString = hours + ':' + minutes + ':' + seconds;
+        document.getElementById('clock').textContent = timeString;
+      }
+  
+      // Update the clock every second
+      setInterval(updateClock, 1000);
+  
+      // Initial call to display the time immediately
+      updateClock();
+    </script>
   </div>
   <script type="text/javascript" src="../eel.js"></script> 
   <script src="scripts/test.js"></script>

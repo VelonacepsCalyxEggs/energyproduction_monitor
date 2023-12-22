@@ -206,24 +206,6 @@ def dataRequestYearPeriod(measure):
     return jsonifiedData
 
 @eel.expose
-def configEdit(username,ip,port,password):
-    data = {
-    "user": username,
-    "ip": ip,
-    "port": port,
-    "password": password
-    }
-    script_path = os.path.abspath(sys.argv[0])
-    script_directory = os.path.dirname(script_path)
-    parent_directory = os.path.dirname(script_directory)
-    jsonPath = parent_directory + '\\appl\\config\\config.json'
-    print(jsonPath)
-    with open(jsonPath, 'w') as json_file:
-        json.dump(data, json_file, indent=4)
-    print('config changed.')
-    return()
-
-@eel.expose
 def dataRequestYearProduction(date,measure):
     script_path = os.path.abspath(sys.argv[0])
     script_directory = os.path.dirname(script_path)
@@ -402,6 +384,83 @@ def dataRequestYearPeriodProduction(measure):
     print(jsonifiedData)
     return jsonifiedData
 
+@eel.expose
+def configEdit(username,ip,port,password):
+    data = {
+    "user": username,
+    "ip": ip,
+    "port": port,
+    "password": password
+    }
+    script_path = os.path.abspath(sys.argv[0])
+    script_directory = os.path.dirname(script_path)
+    parent_directory = os.path.dirname(script_directory)
+    jsonPath = parent_directory + '\\appl\\config\\config.json'
+    print(jsonPath)
+    with open(jsonPath, 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+    print('config changed.')
+    return()
+
+@eel.expose
+def saveDataForAnalysis(dataCons,DataProd,labels):
+    data = {
+    "consumption": dataCons,
+    "production": DataProd,
+    "labels": labels
+    }
+    script_path = os.path.abspath(sys.argv[0])
+    script_directory = os.path.dirname(script_path)
+    parent_directory = os.path.dirname(script_directory)
+    jsonPath = parent_directory + '\\appl\\files\\data.json'
+    print(jsonPath)
+    with open(jsonPath, 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+    print('data saved for analysis')
+    return()
+
+@eel.expose
+def dataAnalysis():
+    script_path = os.path.abspath(sys.argv[0])
+    script_directory = os.path.dirname(script_path)
+    parent_directory = os.path.dirname(script_directory)
+    jsonPath = parent_directory + '\\appl\\files\\data.json'
+    print(jsonPath)
+    with open(jsonPath, 'r') as json_file:
+        data = json.load(json_file)
+    consumption = []
+    production = []
+    effectiveness = []
+    i = 0
+    for num in data['production']:
+        efficiency = (float(num) / float(data['consumption'][i])) * 100
+        effectiveness.append(int(efficiency))
+        i = i + 1
+    print(effectiveness) 
+    effectivenessAnomaly = []
+    effectivenessAnomalyLabelNumber = []
+    i = 0
+    for num in effectiveness:
+        if num < 95:
+            effectivenessAnomaly.append(num)
+            effectivenessAnomalyLabelNumber.append(i) 
+        i = i + 1
+
+    print(effectivenessAnomaly)
+    print(effectivenessAnomalyLabelNumber)
+    dateformat = len(data['labels'])
+    print(dateformat)
+    jsonData = {
+        'effectiveness': effectiveness,
+        'effectivenessAnomaly': effectivenessAnomaly,
+        'effectivenessAnomalyLabel': effectivenessAnomalyLabelNumber,
+        'dateformat': dateformat
+    }
+    jsonifiedData = json.dumps(jsonData)
+    print(jsonifiedData)
+    return jsonifiedData
+    
+        
 
 
-eel.start('index.html', size=(1024, 512), port=55045)
+eel.start('index.html', size=(1920, 1080), port=55045)

@@ -41,7 +41,7 @@ document.getElementById('date').oninput = function (){
         requestedData = requestedData.join('-').split('-');
         requestedData2 = requestedData2.join('-').split('-');
         dateSplit = date.split('-')
-    
+        labels = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
           new Chart(document.getElementById("line-chart"), {
             type: 'line',
             data: {
@@ -67,6 +67,7 @@ document.getElementById('date').oninput = function (){
               }
             }
           });     
+          eel.saveDataForAnalysis(requestedData,requestedData2,labels) 
         console.log(requestedData)         
       }).catch(function (error) {
         console.error(error);

@@ -60,26 +60,18 @@
 
 <body>
   <div class="row row-cols-2 p-0">
-    <div class="container_fluid" style="background-color: #003675;height: 12vh;display:flex;align-items: center;"><span style="padding: 4vh;"><button id="homeBut" value="http://localhost:55045/index.html" style="padding: 2vh;">Home</button></span><span style="padding: 4vh;"><button id="energyBut" value="http://localhost:55045/energygraph.html" style="padding: 2vh;">Energy Graph</button></span><span style="padding: 4vh;"><button id="paramsBut" style="padding: 2vh;">Options</button></span><span style="padding: 4vh;"><button id="exitBut" style="padding: 2vh;">Выход</button></span></div>
-    <div class="container_fluid" style="background-color: #003675;height: 12vh;display:flex;border-style: solid;border-color: black;border-left: 8px;align-items: center;align-content: center;justify-content: center;"><span class="h1" id="testchange" style="color: white;">ЭнергоПроизводство</span></div>
+    <div class="container_fluid" style="background-color: #003675;height: 12vh;display:flex;align-items: center; border-style: solid;border-color: black; border-right: 200px; border-width: 8px;"><span style="padding: 4vh;"><button id="homeBut" value="http://localhost:55045/index.html" style="padding: 2vh;">Home</button></span><span style="padding: 4vh;"><button id="energyBut" value="http://localhost:55045/energygraph.html" style="padding: 2vh;">Energy Graph</button></span><span style="padding: 4vh;"><button id="paramsBut" style="padding: 2vh;">Options</button></span><span style="padding: 4vh;"><button id="exitBut" style="padding: 2vh;">Выход</button></span></div>
+    <div class="container_fluid" style="background-color: #003675;height: 12vh;display:flex;border-style: solid;border-color: black; border-width: 8px; border-left: 200px;align-items: center;align-content: center;justify-content: center;"><span class="h1" id="testchange" style="color: white;">ЭнергоПроизводство</span></div>
   </div>
 </div>
   <script type="text/javascript" src="../eel.js"></script> 
   <script src="scripts/test.js"></script>
-<table>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</table>
+<ul id="dataTable">
+</ul>
 </body>
-<script src="scripts/energychartalltime.js"></script>
-<script src="scripts/energychartyear.js"></script>
-<script src="scripts/energychartmonth.js"></script>
-<script src="scripts/energychartday.js"></script>
 <script src="scripts/exit.js"></script>
 <script src="scripts/gohome.js"></script>
+<script src="scripts/datadisplay.js"></script>
+<script src="scripts/gotoenergychart.js"></script>
+<script src="scripts/gotooptions.js"></script>
 </html>

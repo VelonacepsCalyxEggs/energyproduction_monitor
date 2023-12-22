@@ -44,6 +44,7 @@ document.getElementById('buttonDay').onclick = function () {
         daysInMonth = Date(dateSplit[0], dateSplit[1], 0)
         console.log(daysInMonth)
         hoursInDay = Array.from(Array(requestedData.length).keys()).map((num) => num + 1);
+        labels = hoursInDay
 
           new Chart(document.getElementById("line-chart"), {
             type: 'line',
@@ -70,6 +71,7 @@ document.getElementById('buttonDay').onclick = function () {
               }
             }
           });     
+        eel.saveDataForAnalysis(requestedData,requestedData2,labels) 
         console.log(requestedData)         
       }).catch(function (error) {
         console.error(error);
