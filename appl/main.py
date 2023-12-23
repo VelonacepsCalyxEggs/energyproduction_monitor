@@ -7,8 +7,10 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import json
 from datetime import datetime
 import os
-
-eel.init("C:/Users/ivank/source/repos/energyproduction_monitor/appl/gui") #gotta auto detect the path...
+script_path = os.path.abspath(sys.argv[0])
+script_directory = os.path.dirname(script_path)
+parent_directory = os.path.dirname(script_directory)
+eel.init(parent_directory + "\\appl\\gui") 
 
 @eel.expose
 def startup():
@@ -392,15 +394,25 @@ def configEdit(username,ip,port,password):
     "port": port,
     "password": password
     }
+    print(ip)
     script_path = os.path.abspath(sys.argv[0])
     script_directory = os.path.dirname(script_path)
     parent_directory = os.path.dirname(script_directory)
     jsonPath = parent_directory + '\\appl\\config\\config.json'
     print(jsonPath)
+    try:
+        con = psycopg2.connect(host=ip, port=port, database='energydb', user=username, password=password)
+        con.close()
+        e = 42
+        exception1 = e
+    except Exception as e:
+        print('Config invalid!!! ', e)
+        exception1 = json.dumps(str(e))
     with open(jsonPath, 'w') as json_file:
         json.dump(data, json_file, indent=4)
     print('config changed.')
-    return()
+    
+    return(exception1)
 
 @eel.expose
 def saveDataForAnalysis(dataCons,DataProd,labels):
@@ -459,8 +471,5 @@ def dataAnalysis():
     jsonifiedData = json.dumps(jsonData)
     print(jsonifiedData)
     return jsonifiedData
-    
         
-
-
 eel.start('index.html', size=(1920, 1080), port=55045)

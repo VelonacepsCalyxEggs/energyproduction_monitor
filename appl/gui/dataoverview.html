@@ -66,12 +66,26 @@
 </div>
   <script type="text/javascript" src="../eel.js"></script> 
   <script src="scripts/test.js"></script>
+  <form action="">
+    <label for="Filter">Filter by:</label>
+    <select name="Filter" id="filter">
+    <optgroup label="Filter">
+        <option value="all">Show all</option>   
+        <option value="over">Remove Overproductions</option>    
+        <option value="undr">Remove Underproductions</option>
+        <option value="good">Remove Normal</option>
+    </optgroup>
+    </select>
+  <br><br>
+</form>
+<button id="filterbut">Apply filter</button>
 <ul id="dataTable">
 </ul>
 </body>
-<script src="scripts/exit.js"></script>
-<script src="scripts/gohome.js"></script>
-<script src="scripts/datadisplay.js"></script>
-<script src="scripts/gotoenergychart.js"></script>
-<script src="scripts/gotooptions.js"></script>
+  <script src="scripts/exit.js"></script>
+  <script src="scripts/gohome.js"></script>
+  <script src="scripts/datadisplay.js"></script>
+  <script src="scripts/gotoenergychart.js"></script>
+  <script src="scripts/gotooptions.js"></script>
+  <script src="scripts/datafilter.js"></script>
 </html>

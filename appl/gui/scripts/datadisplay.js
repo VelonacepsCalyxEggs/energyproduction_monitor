@@ -27,14 +27,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (element > 100) {
             newItem.textContent = `Effectiveness for ${labels[i]} is: ${element}%! [WARNING! OVERPRODUCTION DETECTED.]`;
             newItem.className = "text-danger fw-bold"
+            newItem.id = "overProd"
         }
         if (element < 98) {
             newItem.textContent = `Effectiveness for ${labels[i]} is: ${element}%! [WARNING! NOT ENOUGH PRODUCTION DETECTED.]`;
             newItem.className = "text-warning fw-bold"
+            newItem.id = "underProd"
         }
         if (element > 98 && element < 101 || element == 98) {
             newItem.textContent = `Effectiveness for ${labels[i]} is: ${element}%`; 
             newItem.className = "text-success fw-bold"
+            newItem.id = "goodProd"
         }
         
         dataTable.appendChild(newItem)

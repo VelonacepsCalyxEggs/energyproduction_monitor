@@ -4,7 +4,7 @@ document.getElementById('date').oninput = function (){
   }
   document.getElementById('buttonYear').onclick = function () {
     var iframes = document.querySelectorAll('iframe');
-  
+    dateformatting = 3
     iframes.forEach((iframe) => {
       iframe.remove();
     })
