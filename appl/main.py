@@ -7,6 +7,9 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import json
 from datetime import datetime
 import os
+import hashlib
+
+
 script_path = os.path.abspath(sys.argv[0])
 script_directory = os.path.dirname(script_path)
 parent_directory = os.path.dirname(script_directory)
@@ -471,5 +474,73 @@ def dataAnalysis():
     jsonifiedData = json.dumps(jsonData)
     print(jsonifiedData)
     return jsonifiedData
+
+@eel.expose
+def login(login,passwordUser):
+    if len(passwordUser) == 64:
+        print('logincheck')
+    else:
+        passwordUser = hashlib.sha256(passwordUser.encode('UTF-8'))
+        passwordUser = passwordUser.hexdigest()
+    script_path = os.path.abspath(sys.argv[0])
+    script_directory = os.path.dirname(script_path)
+    parent_directory = os.path.dirname(script_directory)
+    jsonPath = parent_directory + '\\appl\\config\\config.json'
+    with open(jsonPath) as json_file:
+        SQLData = json.load(json_file)
+    ip = SQLData['ip']
+    port = SQLData['port']
+    username = SQLData['user']
+    password = SQLData['password']
+
+    print(passwordUser," ",login)
+    con = psycopg2.connect(host=ip, port=port, database='energydb', user=username, password=password)
+    cur = con.cursor()
+    cur.execute(sql.SQL("SELECT login,password,role FROM users WHERE password = %s and login = %s"), [passwordUser, login])
+    data = cur.fetchall()
+    print(data)
+    jsonPath = parent_directory + '\\appl\\gui\\scripts\\userdata.json'
+    if len(data) > 0:
+        loggedin = 1
         
-eel.start('index.html', size=(1920, 1080), port=55045)
+    elif len(data) == 0:
+        loggedin = 0
+    else: 
+        loggedin = 0
+    if str(data) == '[]':
+        dataJson = {
+             'password': '11111111111111111111111111111111111111111111111111111111111111111',
+             'login': 'fuck'
+        }
+        with open(jsonPath, 'w') as json_file:
+            json.dump(dataJson, json_file, indent=4)
+        print('le pizdon')
+    else:
+        print('balls')
+        dataJson = {
+             'password': data[0][0],
+             'login': data[0][1]
+        }
+        with open(jsonPath, 'w') as json_file:
+            json.dump(dataJson, json_file, indent=4)
+    return loggedin
+
+@eel.expose
+def registerUser(login,passwordUser,role): 
+    return
+
+@eel.expose
+def logout():
+    script_path = os.path.abspath(sys.argv[0])
+    script_directory = os.path.dirname(script_path)
+    parent_directory = os.path.dirname(script_directory)
+    jsonPath = parent_directory + '\\appl\\gui\\scripts\\userdata.json'
+    dataJson = {
+            'password': '11111111111111111111111111111111111111111111111111111111111111111',
+            'login': 'fuck'
+        }
+    with open(jsonPath, 'w') as json_file:
+        json.dump(dataJson, json_file, indent=4)
+    return
+
+eel.start('login.html', size=(1920, 1080), port=55045)

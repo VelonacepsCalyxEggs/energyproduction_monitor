@@ -7,20 +7,95 @@ document.addEventListener('DOMContentLoaded', function() {
         let effectivenessAnomalyLabelArray = requestedData.effectivenessAnomalyLabel;
         let dateformat = requestedData.effectiveness;
         console.log(dateformat.length)
+        let dataTable = document.getElementById("dataTable");
+        let dataList = document.getElementById("dataList");
+        let dataDateList = document.getElementById("dataDateList");
         if (dateformat.length == 12) {
             labels = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
+            for(let i = 0; i < dateformat.length; i++) {
+                dataDateList.innerHTML = dataDateList.innerHTML + `<th class='fs-6'>${labels[i]} month</th>`
+                //let dataListElement = document.getElementById(`${i}hr`);
+            }
+            for(let i = 0; i < dateformat.length; i++) { 
+                let element = effectivenessArray[i];
+                if (element > 100) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-danger fw-bold">${element}%</td>`
+                }
+                if (element < 98) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-warning fw-bold">${element}%</td>`
+                }
+                if (element > 98 && element < 101 || element == 98) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-success fw-bold">${element}%</td>`
+                }
+            }
         }
         if (dateformat.length > 25) {
+            i2 = 1
             labels = numbersArray = Array.from({ length: dateformat.length }, (_, index) => index + 1);
+            for(let i = 0; i < dateformat.length; i++) {
+                dataDateList.innerHTML = dataDateList.innerHTML + `<th class='fs-6'>${i2} day</th>`
+                //let dataListElement = document.getElementById(`${i}hr`);
+                i2 = i2 + 1
+            }
+            for(let i = 0; i < dateformat.length; i++) { 
+                let element = effectivenessArray[i];
+                if (element > 100) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-danger fw-bold">${element}%</td>`
+                }
+                if (element < 98) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-warning fw-bold">${element}%</td>`
+                }
+                if (element > 98 && element < 101 || element == 98) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-success fw-bold">${element}%</td>`
+                }
+            }
+            
         }
         if (dateformat.length == 24) {
+            i2 = 1
             labels = numbersArray = Array.from({ length: dateformat.length }, (_, index) => index + 1);
+            for(let i = 0; i < dateformat.length; i++) {
+                dataDateList.innerHTML = dataDateList.innerHTML + `<th class='fs-6'>${i2} hour</th>`
+                //let dataListElement = document.getElementById(`${i}hr`);
+                i2 = i2 + 1
+            }
+            for(let i = 0; i < dateformat.length; i++) { 
+                let element = effectivenessArray[i];
+                if (element > 100) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-danger fw-bold">${element}%</td>`
+                }
+                if (element < 98) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-warning fw-bold">${element}%</td>`
+                }
+                if (element > 98 && element < 101 || element == 98) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-success fw-bold">${element}%</td>`
+                }
+            }
+           
         }
         if (dateformat.length == 6) {
             labels = numbersArray = Array.from({ length: dateformat.length }, (_, index) => index + 1);
+            i2 = 0
+            years = [2019,2020,2021,2022,2023,2024]
+            for(let i = 0; i < dateformat.length; i++) {
+                dataDateList.innerHTML = dataDateList.innerHTML + `<th class='fs-6'>${years[i]} year</th>`
+                //let dataListElement = document.getElementById(`${i}hr`);
+                i2 = i2 + 1
+            }
+            for(let i = 0; i < dateformat.length; i++) { 
+                let element = effectivenessArray[i];
+                if (element > 100) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-danger fw-bold">${element}%</td>`
+                }
+                if (element < 98) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-warning fw-bold">${element}%</td>`
+                }
+                if (element > 98 && element < 101 || element == 98) {
+                    dataList.innerHTML = dataList.innerHTML + `<td class="text-success fw-bold">${element}%</td>`
+                }
+            }
         }
         console.log(effectivenessArray); // This will log the "effectiveness" array to the console
-        let dataTable = document.getElementById("dataTable");
         for(let i = 0; i < dateformat.length; i++) {
         let element = effectivenessArray[i];
         let newItem = document.createElement("li");
