@@ -519,15 +519,12 @@ def login(login,passwordUser):
         print('balls')
         dataJson = {
              'password': data[0][0],
-             'login': data[0][1]
+             'login': data[0][1],
+             'role': data[0][2]
         }
         with open(jsonPath, 'w') as json_file:
             json.dump(dataJson, json_file, indent=4)
     return loggedin
-
-@eel.expose
-def registerUser(login,passwordUser,role): 
-    return
 
 @eel.expose
 def logout():
@@ -543,4 +540,53 @@ def logout():
         json.dump(dataJson, json_file, indent=4)
     return
 
+@eel.expose 
+def createNewUser(accLogin,accPassword):
+    accPassword = hashlib.sha256(accPassword.encode('UTF-8'))
+    accPassword = accPassword.hexdigest()
+    script_path = os.path.abspath(sys.argv[0])
+    script_directory = os.path.dirname(script_path)
+    parent_directory = os.path.dirname(script_directory)
+    jsonPath = parent_directory + '\\appl\\config\\config.json'
+    with open(jsonPath) as json_file:
+        SQLData = json.load(json_file)
+    ip = SQLData['ip']
+    port = SQLData['port']
+    username = SQLData['user']
+    password = SQLData['password']
+    con = psycopg2.connect(host=ip, port=port, database='energydb', user=username, password=password)
+    cur = con.cursor()
+    try:
+        cur.execute(sql.SQL("INSERT INTO users (login,password,role) VALUES (%s, %s, 'manager')"), [accLogin, accPassword])
+        e = 'good'
+        print('Excecuted query with password and login: ', accPassword, accLogin)
+    except Exception as e:
+        print('Error ', e)
+    con.commit()
+    con.close()
+    return '123'
+
+@eel.expose
+def removeUser(accLogin):
+    script_path = os.path.abspath(sys.argv[0])
+    script_directory = os.path.dirname(script_path)
+    parent_directory = os.path.dirname(script_directory)
+    jsonPath = parent_directory + '\\appl\\config\\config.json'
+    with open(jsonPath) as json_file:
+        SQLData = json.load(json_file)
+    ip = SQLData['ip']
+    port = SQLData['port']
+    username = SQLData['user']
+    password = SQLData['password']
+    con = psycopg2.connect(host=ip, port=port, database='energydb', user=username, password=password)
+    cur = con.cursor()
+    try:
+        cur.execute(sql.SQL("DELETE FROM users WHERE login = %s"), [accLogin])
+        e = 'good'
+        print('Removed account with login: ', accLogin)
+    except Exception as e:
+        print('Error ', e)
+    con.commit()
+    con.close()
+    return 
 eel.start('login.html', size=(1920, 1080), port=55045)

@@ -10,6 +10,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script type=”text/javascript” src=”/eel.js”></script>
+  <script src="scripts/loginchecker.js"></script>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
   <script type="text/javascript" src="../eel.js"></script> 
   <script src="scripts/exit.js"></script>
   <script src="scripts/gotoenergychart.js"></script>
-  <form id="postgreSQLForm">
+  <form class="adminInt">
     <p>PostgreSQL Username:</p>
     <input type="text" id="user">
     <p>PostgreSQL IP address:</p>
@@ -31,9 +32,23 @@
     <input type="password" id="password"><br>
     <button style="margin-top: 6px;" type="button" id="buttonSave">Save</button>
 </form>
+<form class="adminInt">
+  <p>Login:</p>
+  <input type="text" id="userAdminRemove">
+  <button style="margin-top: 6px;" type="button" id="userRemove">Remove User</button>
+</form>
+<form class="adminInt">
+  <p>Login:</p>
+  <input type="text" id="userAdmin">
+  <p>Password:</p>
+  <input type="password" id="passwordAdmin"><br>
+  <button style="margin-top: 6px;" type="button" id="userCreate">Create New User</button>
+</form>
 <div id="error"></div>
 <script src="scripts/preferences.js"></script>
 <script src="scripts/gohome.js"></script>
+<script src="scripts/createaccount.js"></script>
+<script src="scripts/removeacc.js"></script>
 </body>
 
 </html>
