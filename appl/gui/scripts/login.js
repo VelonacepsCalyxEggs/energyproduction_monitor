@@ -8,7 +8,7 @@ document.getElementById('buttonLogin').onclick = function () {
     
     eel.login(login,password)().then(function (loggedin) {
         if (loggedin == 1) {
-            window.location.href = 'http://localhost:55045/index.html'
+            setTimeout(() => {window.location.href = 'http://localhost:55045/index.html'}, 50)
         }
         else {
             console.log(loggedin)

@@ -9,7 +9,6 @@ from datetime import datetime
 import os
 import hashlib
 
-
 script_path = os.path.abspath(sys.argv[0])
 script_directory = os.path.dirname(script_path)
 parent_directory = os.path.dirname(script_directory)
@@ -498,6 +497,7 @@ def login(login,passwordUser):
     cur = con.cursor()
     cur.execute(sql.SQL("SELECT login,password,role FROM users WHERE password = %s and login = %s"), [passwordUser, login])
     data = cur.fetchall()
+    con.close()
     print(data)
     jsonPath = parent_directory + '\\appl\\gui\\scripts\\userdata.json'
     if len(data) > 0:

@@ -8,7 +8,10 @@ from datetime import datetime, timedelta
 
 dbName = 'postgres'
 dbUser = 'postgres'
-con = psycopg2.connect(database = dbName, user = dbUser, password = 424212)
+dbHost = '192.168.0.50'
+dbPort = '5432'
+dbPassword = '111LZo0l4S7dzO0PXA3KOkasw2rcMtO46hY2FbUPxS'
+con = psycopg2.connect(database = dbName, user = dbUser, password = dbPassword, host=dbHost, port=dbPort)
 con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 
 try:
@@ -20,7 +23,7 @@ except Exception as e:
 
 con.close()
 dbName = "energydb"
-con = psycopg2.connect(database = 'energydb', user = dbUser, password = 424212)
+con = psycopg2.connect(database = dbName, user = dbUser, password = dbPassword, host=dbHost, port=dbPort)
 con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cur = con.cursor()
 try:
@@ -148,4 +151,10 @@ while current_date2 <= end_date2:
     current_date2 += timedelta(hours=1)
     cur.execute("INSERT INTO ENERGYPRODUCTIONDATA (kw, date) VALUES (%s, %s)", [randomNum,current_date2])
     print('inserted ', randomNum)
+try:
+    cur.execute(sql.SQL("CREATE TABLE users (id serial PRIMARY KEY, login text UNIQUE, password text, role text);"))
+    cur.execute(sql.SQL("INSERT INTO users (login, password, role) VALUES ('admin', 4242, 'admin');"))
+except Exception as e:
+    print('уже есть... ', e)
+
 

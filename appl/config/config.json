@@ -1,6 +1,6 @@
 {
     "user": "postgres",
-    "ip": "127.0.0.1",
+    "ip": "192.168.0.50",
     "port": "5432",
-    "password": "424212"
+    "password": "111LZo0l4S7dzO0PXA3KOkasw2rcMtO46hY2FbUPxS"
 }
